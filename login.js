@@ -78,18 +78,24 @@ if (file==false){
             data=JSON.parse(f);
             dict[password2]=user_data;
             data.push(user_data);
-            fs.writeFileSync("sanjana.json",JSON.stringify(data,null,5))
+            fs.writeFileSync("sanjana.json",JSON.stringify(data,null,5));
         }
     }else if (loginSignup="login"){
-        let loginName=readline.question("enter login name/user name :");
-        let loginPassword=readline.question("enter login password/user password :")
-        k=fs.readFileSync("sanjana.json","utf8")
+        let loginName=readline.question("enter your login name/user name :");
+        let loginPassword=readline.question("enter your login password/user password :");
+        k=fs.readFileSync("sanjana.json","utf8");
         data1=JSON.parse(k);
         if (k.includes(loginPassword,loginName)){
             console.log("your account login succesfully");   
-        }
-        else{
-            console.log("account is not exists.")
+        }else if(!k.includes(loginName)) {
+            console.log("your user name is wrong");
+        }else if(!k.includes(loginPassword)) {
+            console.log("your password is wrong");
+        }else if(!k.includes(loginPassword,loginName)) {
+            console.log("your user name & password is wrong");
+        }else{
+            console.log("account is not exists.");
         }   
     }
 }
+

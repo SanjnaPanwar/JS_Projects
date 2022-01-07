@@ -1,4 +1,6 @@
 const fs=require("fs");
+const { password } = require("input/dist/lib");
+// const { question } = require("readline-sync");
 const readline=require("readline-sync");
 function strongpassword(password){
     if ((password.length)>=6 && (password.length)<16){
@@ -38,17 +40,16 @@ if (file==false){
         let hobbies=readline.question("enter your hobies : ");
         let gender=readline.question("enter your gender (male or female) :");
         let mylist=[];
+        let dic={};
         let your_data={};
         let list1=["username","password","description","dob","hobbies","gender"];
         let list2=[userName,password2,description,date_of_birth,hobbies,gender];
         for (let i=0; i<list1.length;i++){
             your_data[list1[i]]=list2[i]
         }
-        // console.log(your_data)
-        mylist.push(your_data)
-        // console.log(mylist)
-        fs.writeFileSync("sanjana.json",JSON.stringify(mylist,null,5))
-    }
+        dic[password2]=your_data
+        mylist.push(dic)
+        fs.writeFileSync("sanjana.json",JSON.stringify(mylist,null,5))}
 }else if (file==true){
     if (loginSignup=="signup"){
         let userName=readline.question("enter your user name :");
@@ -67,6 +68,7 @@ if (file==false){
             let hobbies=readline.question("enter your hobbies:");
             let gender=readline.question("enter your gender (male/female):");
             let user_data={};
+            let dict={};
             list1=["username","password","description","dob","hobbies","gender"];
             list2=[userName,password2,description,date_of_birth,hobbies,gender];
             for (let i=0; i<list1.length;i++){
@@ -74,8 +76,9 @@ if (file==false){
             }
             f=fs.readFileSync("sanjana.json","utf8")
             data=JSON.parse(f);
-            data[password2]=user_data;
-            fs.writeFileSync("sanjana.json",JSON.stringify(mylist,null,5))
+            dict[password2]=user_data;
+            data.push(user_data);
+            fs.writeFileSync("sanjana.json",JSON.stringify(data,null,5))
         }
     }else if (loginSignup="login"){
         let loginName=readline.question("enter login name/user name :");
@@ -83,12 +86,10 @@ if (file==false){
         k=fs.readFileSync("sanjana.json","utf8")
         data1=JSON.parse(k);
         if (k.includes(loginPassword,loginName)){
-            console.log("your account login succesfully");
-            
+            console.log("your account login succesfully");   
         }
         else{
             console.log("account is not exists.")
         }   
     }
 }
-

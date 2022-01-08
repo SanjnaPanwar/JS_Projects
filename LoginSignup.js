@@ -86,13 +86,13 @@ if (file==false){
         k=fs.readFileSync("sanjana.json","utf8");
         data1=JSON.parse(k);
         if (k.includes(loginPassword,loginName)){
-            console.log("your account login succesfully");   
+            console.log("your account login succesfully"); 
+        }else if(!k.includes(loginPassword && loginName)) {
+            console.log("your user name & password is wrong");
         }else if(!k.includes(loginName)) {
             console.log("your user name is wrong");
         }else if(!k.includes(loginPassword)) {
             console.log("your password is wrong");
-        }else if(!k.includes(loginPassword,loginName)) {
-            console.log("your user name & password is wrong");
         }else{
             console.log("account is not exists.");
         }   
